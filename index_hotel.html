@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royelle - Luxury Hotel</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f8f8;
+      color: #333;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: #03312E;
+      color: white;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 40px;
+      align-items: center;
+    }
+
+    .top-bar div {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .top-bar .socials a {
+      margin-left: 10px;
+      font-size: 16px;
+    }
+
+    /* Navbar */
+    nav {
+      background: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav .logo {
+      font-weight: bold;
+      font-size: 22px;
+      color: #03312E;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .btn-book {
+      background: #03312E;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    /* Welcome Section */
+    .welcome {
+      text-align: center;
+      padding: 60px 20px;
+      background: #f8f8f8;
+      color: #333;
+    }
+
+    .welcome h2 {
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .welcome p {
+      max-width: 800px;
+      margin: 0 auto 25px auto;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .welcome button {
+      background: #03312E;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .welcome button:hover {
+      background: #055b54;
+    }
+
+    /* Rooms Section */
+    .rooms {
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .rooms h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .room-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .room-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .room-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .room-info {
+      padding: 20px;
+      text-align: left;
+    }
+
+    .room-info h3 {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+
+    .room-info p {
+      margin: 5px 0;
+      color: #777;
+      font-size: 14px;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #03312E;
+    }
+
+    /* Amenities Strip */
+    .amenities {
+      background: #03312E;
+      color: white;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+      font-weight: 500;
+    }
+
+    /* Reservation Section */
+    .reservation {
+      padding: 60px 20px;
+      text-align: center;
+      background: #f1f1f1;
+    }
+
+    .reservation h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .reservation p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .reservation button {
+      background: #03312E;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div>
+      <span>(000) 000-0000</span>
+      <span>example@gmail.com</span>
+      <span>2464 Royal Ln. Mesa, New Jersey 45463</span>
+    </div>
+    <div class="socials">
+      <a href="#">🌐</a>
+      <a href="#">🐦</a>
+      <a href="#">📸</a>
+      <a href="#">💼</a>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🏨 Royelle</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Rooms & Suites</a></li>
+      <li><a href="#">Restaurant</a></li>
+      <li><a href="#">Gallery</a></li>
+      <li><a href="#">Blogs</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+    <button class="btn-book">Book Now</button>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Rooms & Suites</h1>
+    <p>Home > Rooms & Suites</p>
+  </div>
+
+  <!-- Welcome Section -->
+  <section class="welcome">
+    <h2>WELCOME TO ROYAL HOTEL</h2>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida sollicitudin sapien posuere.
+      Fusce nec rhoncus felis. Fusce vitae libero euismod, auctor orci quis, commodo orci.
+      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia.
+    </p>
+    <button>Book Now</button>
+  </section>
+
+  <!-- Rooms Section -->
+  <section class="rooms">
+    <h2>Luxury Rooms & Suites</h2>
+    <div class="room-grid">
+      <div class="room-card">
+        <img src="img/hab1.jpg" alt="room">
+        <div class="room-info">
+          <div class="price">$150 / night</div>
+          <h3>Standard Rooms</h3>
+          <p>1 Bed • 1 Bath • 300 sqft</p>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="img/hab2.jpg" alt="room">
+        <div class="room-info">
+          <div class="price">$250 / night</div>
+          <h3>Deluxe Rooms</h3>
+          <p>1 Bed • 2 Bath • 400 sqft</p>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="img/hab3.jpg" alt="room">
+        <div class="room-info">
+          <div class="price">$450 / night</div>
+          <h3>The Pearl Suite</h3>
+          <p>2 Bed • 2 Bath • 700 sqft</p>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="img/hab4.jpg" alt="room">
+        <div class="room-info">
+          <div class="price">$550 / night</div>
+          <h3>Golden Horizon Suite</h3>
+          <p>3 Bed • 3 Bath • 800 sqft</p>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="img/hab5.jpg" alt="room">
+        <div class="room-info">
+          <div class="price">$300 / night</div>
+          <h3>The Haven Room</h3>
+          <p>2 Bed • 2 Bath • 750 sqft</p>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="img/hab6.jpg" alt="room">
+        <div class="room-info">
+          <div class="price">$450 / night</div>
+          <h3>The Executive Deluxe</h3>
+          <p>4 Bed • 3 Bath • 950 sqft</p>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="img/hab7.jpg" alt="room">
+        <div class="room-info">
+          <div class="price">$550 / night</div>
+          <h3>The Prestige Room</h3>
+          <p>5 Bed • 4 Bath • 1200 sqft</p>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img src="img/hab8.jpg" alt="room">
+        <div class="room-info">
+          <div class="price">$600 / night</div>
+          <h3>Royal Suite</h3>
+          <p>4 Bed • 3 Bath • 825 sqft</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Amenities -->
+  <div class="amenities">
+    <span>Breakfast Included</span> ✦
+    <span>Swimming Pool</span> ✦
+    <span>High Speed Wifi</span> ✦
+    <span>Spa & Wellness</span>
+  </div>
+
+  <!-- Reservation -->
+  <section class="reservation">
+    <h2>Book Your Stay and Enjoy Exceptional Comfort</h2>
+    <p>Make a reservation today and experience the luxury.</p>
+    <button>Make a Reservation</button>
+  </section>
+
+</body>
+</html>
+

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoteles</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+
+    .container {
+      width: 90%;         
+      max-width: 1200px;   
+      margin: 0 auto;       
+    }
+
+    /* Header */
+    header {
+      background: #f0f0f0;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Menú desplegable */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropbtn {
+      background-color: #444;
+      color: white;
+      padding: 10px 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 4px;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 10px 14px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+      background-color: #333;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Buscador */
+    .buscador {
+      background: #fff;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Hoteles */
+    .hotel {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      gap: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .hotel img {
+      width: 250px;
+      height: 160px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .hotel-info {
+      flex: 1;
+    }
+
+    .hotel h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .hotel p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .precio {
+      font-weight: bold;
+      color: #000;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <!-- Menú desplegable -->
+      <div class="dropdown">
+        <button class="dropbtn">DIJUCE</button>
+        <div class="dropdown-content">
+          <a href="index3.html">Deportes</a>
+          <a href="index.html">Inicio</a>
+          <a href="index5.html">Servicios Extras</a>
+          <a href="index4.html">Jardinería</a>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#">❤️ Favoritos</a>
+        <a href="#">🌐 ES</a>
+      </nav>
+    </header>
+
+    <!-- Buscador -->
+    <div class="buscador">
+      <input type="text" placeholder="¿A dónde vas?">
+      <input type="date">
+      <input type="date">
+      <select>
+        <option>Elegir personas y habitación</option>
+      </select>
+      <button class="btn">Buscar</button>
+    </div>
+
+    <!-- Hoteles -->
+    <div class="hotel">
+      <img src="https://image-tc.galaxy.tf/wijpeg-35fzpqr4jlvia9yif0dg953bz/1.jpg?width=1920" alt="Hotel Hilton">
+      <div class="hotel-info">
+        <h3>Hilton Aruba Caribbean Resort & Casino ⭐⭐⭐⭐</h3>
+        <p>Piscinas refrescantes, lounge junto al agua y deportes acuáticos.</p>
+        <p class="precio">$2.209.788</p>
+        <button class="btn">Ver oferta</button>
+      </div>
+    </div>
+
+    <div class="hotel">
+      <img src="https://lirp.cdn-website.com/ba701a07/dms3rep/multi/opt/Hotel+Las+Americas+Cartagena+de+Indias+Colombia+Las+Americas+Hotels+Group+Habitacion+Torre+del+Mar+Superior+Una+Cama-5-640w.jpg" alt="Hotel Holiday">
+      <div class="hotel-info">
+        <h3>Holiday Inn Resort Aruba-beach Resort ⭐⭐⭐⭐</h3>
+        <p>Piscinas y jardines bien cuidados, deportes acuáticos de aventura.</p>
+        <p class="precio">$1.794.296</p>
+        <button class="btn">Ver oferta</button>
+      </div>
+    </div>
+
+    <div class="hotel">
+      <img src="https://hotelesdann.com/dann-carlton-bucaramanga/wp-content/uploads/sites/4/2020/08/habitacin-suite-hotel-dann-carlton-bucaramanga-bucaramanga-colombia_24399300810_o.jpg" alt="Sunset Paradise">
+      <div class="hotel-info">
+        <h3>Sunset Paradise Resort ⭐⭐⭐⭐</h3>
+        <p>Hermosa vista al mar, piscina infinita y restaurantes exclusivos.</p>
+        <p class="precio">$3.500.000</p>
+        <button class="btn">Ver oferta</button>
+      </div>
+    </div>
+
+    <div class="hotel">
+      <img src="https://image-tc.galaxy.tf/wijpeg-5srw8mjtza6abfwrpha1r5lmg/habitacion-special-double_standard.jpg?crop=107%2C0%2C1707%2C1280" alt="Blue Ocean Suites">
+      <div class="hotel-info">
+        <h3>Blue Ocean Suites ⭐⭐⭐⭐</h3>
+        <p>Suites modernas con balcones frente al mar y spa de lujo.</p>
+        <p class="precio">$2.750.000</p>
+        <button class="btn">Ver oferta</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

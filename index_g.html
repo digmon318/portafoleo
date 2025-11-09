@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dijuce Hotel - Gastronomía</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      line-height: 1.6;
+      width: 50%;
+      padding-left: 450px;
+    }
+
+  
+    header {
+      background: rgb(218,217,217);
+      color: black;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    nav a, .dropdown button {
+      text-decoration: none;
+      color: black;
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 8px 12px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover, .dropdown button:hover {
+      background: #444;
+      border-radius: 5px;
+    }
+
+    
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px;
+      color: black;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background: #444;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px white
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    p {
+      text-align: justify;
+    }
+
+    
+    .imagen-grande {
+        width: 760px;
+      height: 500px;
+      background: #ddd;
+      margin: 20px 0;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+   
+    .imagenes-fijas {
+      position: fixed;
+      right: 370px;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 900;
+    }
+
+    .imagenes-fijas img {
+      width: 120px;
+      height: 19%;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+ 
+  <header>
+    <div class="dropdown">
+      <button>DIJUCE</button>
+      <div class="dropdown-content">
+        <a href="index2.html">Habitaciones</a>
+        <a href="index3.html">Deportes</a>
+        <a href="index.html">Inicio</a>
+        <a href="index5.html">Servicios Extras</a>
+        <a href="index4.html">Jardinería</a>
+      </div>
+    </div>
+    <nav>
+      <a href="#">Gastronomía</a>
+    </nav>
+  </header>
+
+  
+  <div class="imagenes-fijas">
+    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQCEpGCqmzcm1KIvyxlwwa-zqMbhlRamD5V0kctn1Isld52SslstbZyR7hHsyOuRKqDKaug6l0NFjqmAK8OTt4QrewTUpCzBeGnPizK54OIEQ" alt="Mini Imagen 1">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCNemW7uj3CxtoQT8jvS4jsNsS76M40vtGKQ&s" alt="Mini Imagen 2">
+    <img src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2009/8/21/0/nic_dominique_s3x4.jpg.rend.hgtvcom.406.542.85.suffix/1371590926652.webp" alt="Mini Imagen 3">
+    <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQYTkxC2x-yTJb3R3zik8LJ_GdXAp3CIik6GB99_KdRODjiJQurNXC-32Ge3pj8_gywoF3SCDyXXayQ7xcqa8f8jA" alt="Mini Imagen 4">
+  </div>
+
+  
+  <div class="container">
+    <h1>Bienvenidos a la experiencia gastronómica de Dijuce </h1>
+    <p>
+      En el Hotel Dijuce, la gastronomía es un viaje para los sentidos. 
+      Nuestra carta ha sido diseñada por un equipo de chefs apasionados 
+      que fusionan tradición y modernidad para ofrecer platos únicos.
+    </p>
+    <p>
+      El Chef <b>Alejandro Montalvo</b> les recomienda su <i>risotto de trufa blanca con perlas de parmesano</i>.  
+      La Chef <b>Isabella Fuentes</b> sorprende con un <i>róbalo en salsa de maracuyá y coco</i>, un toque tropical inolvidable.  
+      Para los amantes de la frescura, el Chef <b>Rafael Cárdenas</b> presenta una <i>ensalada mediterránea con queso feta artesanal</i>.  
+      Y para cerrar con broche de oro, la repostera <b>Lucía Delgado</b> los espera con un <i>soufflé de chocolate oscuro con corazón de frutos rojos</i>.
+    </p>
+
+    
+    <img src="https://chefeel.com/chefgeneralfiles/2021/11/hongos-y-setas-scaled.jpg" alt="Imagen grande 1" class="imagen-grande">
+    <img src="https://cdn7.kiwilimon.com/recetaimagen/3982/960x640/1835.jpg.jpg" alt="Imagen grande 2" class="imagen-grande">
+    <img src="https://comedera.com/wp-content/uploads/sites/9/2024/10/ensalada-mediterranea-de-tomate-aceitunas-y-queso-feta.jpg" alt="Imagen grande 3" class="imagen-grande">
+    <img src="https://images.aws.nestle.recipes/resized/2024_10_18T11_52_39_badun_images.badun.es_delicatessen_de_chocolate_con_corazon_de_frutas_rojas_1290_742.jpg" alt="Imagen grande 3" class="imagen-grande">
+
+    <p>
+      En cada plato descubrirán una historia, una tradición y un momento para recordar.  
+      ¡Los invitamos a dejarse llevar por el sabor inconfundible de Dijuce Hotel!
+    </p>
+  </div>
+
+</body>
+</html>

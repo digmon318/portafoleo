@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jefes - Elden Ring</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    
+    .video-fondo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.4);
+    }
+
+    
+    h1 {
+      text-align: center;
+      margin: 10px 0;
+      font-size: 35px;
+      color: purple;
+      text-shadow: 0 0 15px rgba(76, 9, 233, 0.7);
+    }
+
+    
+    .boss-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 15px auto;
+    }
+
+    .boss {
+      text-align: center;
+      padding: 15px 10px;
+      width: 250px;
+      background: rgba(20, 0, 0, 0.7);
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(180, 0, 0, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .boss:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(200, 0, 0, 0.9);
+    }
+
+    .boss img {
+      height: 180px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(200, 0, 0, 0.6);
+    }
+
+    .boss h2 {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #ff4d4d;
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
+    }
+
+    .boss p {
+      font-size: 13px;
+      color: #ddd;
+    }
+
+    
+    .custom-btn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      background: rgba(20, 0, 0, 0.7);
+      color: #ff4d4d;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(180, 0, 0, 0.6);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .custom-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(200, 0, 0, 0.9);
+    }
+  </style>
+</head>
+<body>
+
+  
+  <video autoplay muted loop class="video-fondo">
+    <source src="img/bosses.mp4" type="video/mp4">
+    Tu navegador no soporta video de fondo.
+  </video>
+
+  
+  <h1>Enemigos de ETERNAL ECLIPSE</h1>
+
+  
+  <div class="boss-container">
+    <div class="boss">
+      <img src="img/boos1.png" alt="Malenia">
+      <h2>Malenia, Blade of Miquella</h2>
+      <p>Una de las luchas más desafiantes. Su danza con la espada y regeneración de vida la hacen temida por todos los Tarnished.</p>
+    </div>
+    <div class="boss">
+      <img src="img/boss2.png" alt="Godrick">
+      <h2>Godrick the Grafted</h2>
+      <p>Un semidiós grotesco que se injerta extremidades para hacerse más fuerte. Su castillo es el primer gran obstáculo.</p>
+    </div>
+    <div class="boss">
+      <img src="img/boss3.jpg" alt="Radahn">
+      <h2>General Radahn</h2>
+      <p>Un general colosal que cabalga un caballo diminuto. Su festival de combate es una de las batallas más épicas del juego.</p>
+    </div>
+  </div>
+
+  
+  <div class="boss-container">
+    <div class="boss">
+      <img src="img/boss4.png" alt="Morgott">
+      <h2>Morgott the Omen King</h2>
+      <p>El rey de los presagios, guardián del Trono Elden que esconde su verdadero poder bajo la apariencia de Margit.</p>
+    </div>
+    <div class="boss">
+      <img src="img/boss5.jpg" alt="Mohg">
+      <h2>Mohg, Lord of Blood</h2>
+      <p>El siniestro dios de la sangre. Su ritual oscuro y ataques con llamas escarlata lo hacen temible.</p>
+    </div>
+    <div class="boss">
+      <img src="img/boss6.jpg" alt="Malekith">
+      <h2>Malekith, the Black Blade</h2>
+      <p>El guardián de la Muerte Destinada, portador de la Black Blade que debilita a quienes la enfrentan.</p>
+    </div>
+  </div>
+
+  
+  <a href="entornos.html"><button class="custom-btn">Siguiente</button></a>
+  <a href="personajes.html"><button class="custom-btn">Volver</button></a>
+
+</body>
+</html>

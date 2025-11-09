@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .factura {
+            border: 1px solid #1E1F26;
+            width: 850px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .contenedor1 {
+            border: 1px solid black;
+            background-color: #1E1F26;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-family: sans-serif;
+            padding-bottom: 0px;
+        }
+
+        .logo-texto img {
+            margin-right: 15px;
+            height: 50px;
+            margin-left: 55px;
+        }
+
+        .marca {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .marca .titulo {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .marca .tagline {
+            font-size: 12px;
+            margin: 0;
+            color: #ccc;
+        }
+
+        .derecha {
+            font-size: 50px;
+            text-align: right;
+            margin-right: 50px;
+            color: #FF2E63;
+            font-weight: bolder;
+        }
+
+        .contenedor2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background-color: #1E1F26;
+            color: white;
+            font-family: sans-serif;
+            border-top: 15px solid #FF2E63;
+            padding: 20px 50px 20px 50px;
+        }
+
+        .columna-izquierda {
+            display: flex;
+            flex-direction: column;
+            font-size: 16px;
+            line-height: 0px;
+            padding-left: 30px;
+        }
+
+        .small {
+            font-size: 12px;
+            color: #ccc;
+            line-height: 0px;
+            margin-top: -10px;
+        }
+
+        .columna-derecha {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 15px;
+            text-align: right;
+            line-height: 10px;
+            padding-right: 45px;
+            padding-top: 30px;
+        }
+
+        .linea {
+            display: flex;
+            justify-content: space-between;
+            width: 180px;
+        }
+
+        .etiqueta {
+            font-weight: bold;
+        }
+
+        .valor {
+            color: #ccc;
+        }
+
+        .contenedor3 {
+            padding: 10px 80px;
+            font-family: sans-serif;
+            flex-grow: 1;
+            background-color: #ffffff;
+        }
+
+        .table-responsive {
+            overflow-x: scroll;
+            -webkit-overflow-scrolling: touch;
+            margin: -10px -80px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 30px 50px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333333;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:nth-child(3),
+        td:nth-child(4),
+        td:nth-child(5) {
+            text-align: right;
+        }
+
+        th:nth-child(3),
+        th:nth-child(4),
+        th:nth-child(5) {
+            text-align: right;
+        }
+
+        .invoice-summary-area {
+            background-color: #ffffff;
+            padding: 30px 80px;
+            font-family: sans-serif;
+        }
+
+        .thank-you {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .summary-layout-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .left-column-info {
+            display: flex;
+            flex-direction: column;
+            width: 55%;
+        }
+
+        .payment-info {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .terms-conditions {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .payment-info h4,
+        .terms-conditions h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #555555;
+            font-size: 1em;
+        }
+
+        .payment-info p,
+        .terms-conditions p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #666666;
+            line-height: 1.5;
+        }
+
+        .summary-totals {
+            width: 35%;
+            padding-top: 0;
+            text-align: right;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            color: #333333;
+        }
+
+        .summary-row.total {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #000000;
+            margin-top: 15px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 8px;
+        }
+
+        .summary-row span:last-child {
+            text-align: right;
+            display: inline-block;
+            min-width: 60px;
+        }
+
+        .authorised-sign-container {
+            text-align: right;
+            margin-top: 40px;
+            padding-bottom: 0px;
+        }
+
+        .authorised-sign {
+            font-size: 0.9em;
+            color: #555555;
+            border-top: 1px solid #cccccc;
+            display: inline-block;
+            padding-top: 5px;
+            width: 150px;
+            text-align: center;
+        }
+
+        /* MEDIA QUERIES PARA RESPONSIVIDAD */
+        @media (max-width: 600px) {
+            .factura {
+                width: 95%;
+                margin: 10px auto;
+            }
+
+            .contenedor1,
+            .contenedor2,
+            .invoice-summary-area {
+                padding: 15px 20px;
+            }
+
+            .logo-texto img {
+                margin-left: 0;
+            }
+
+            .derecha {
+                font-size: 35px;
+                margin-right: 0;
+            }
+
+            .columna-izquierda,
+            .columna-derecha {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .contenedor3 {
+                padding: 0 10px;
+            }
+
+            .table-responsive {
+                margin: 0 -10px;
+            }
+
+            table {
+                min-width: 450px;
+                font-size: 0.75em;
+            }
+
+            th,
+            td {
+                padding: 8px 5px;
+            }
+
+            .summary-layout-container {
+                flex-direction: column;
+            }
+
+            .left-column-info,
+            .summary-totals {
+                width: 100%;
+            }
+
+            .summary-totals {
+                margin-top: 20px;
+                padding-top: 15px;
+                border-top: 1px solid #e0e0e0;
+                text-align: left;
+            }
+
+            .summary-row.total {
+                border-top: 1px solid #e0e0e0;
+            }
+
+            .authorised-sign-container {
+                text-align: center;
+            }
+
+            .terms-conditions {
+                border-bottom: none;
+            }
+
+            .summary-totals {
+                border-top: none;
+            }
+        }
+
+        @media (max-width: 300px) {
+            .factura {
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .contenedor1,
+            .contenedor2,
+            .invoice-summary-area {
+                padding: 10px;
+            }
+
+            .logo-texto img {
+                height: 23px;
+            }
+
+            .marca .titulo {
+                font-size: 15px;
+            }
+
+            .marca .tagline {
+                font-size: 10px;
+            }
+
+            .derecha {
+                font-size: 30px;
+            }
+
+            .contenedor2 {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .columna-derecha {
+                text-align: left;
+                padding-top: 10px;
+            }
+
+            .linea {
+                width: 100%;
+            }
+
+            .contenedor3 {
+                padding: 0 5px;
+            }
+
+            .table-responsive {
+                margin: 0 -5px;
+            }
+
+            table {
+                min-width: 280px;
+                font-size: 0.65em;
+            }
+
+            th,
+            td {
+                padding: 5px 3px;
+            }
+
+            .thank-you {
+                font-size: 1em;
+                margin-bottom: 15px;
+            }
+
+            .payment-info,
+            .terms-conditions {
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+            }
+
+            .payment-info p,
+            .terms-conditions p {
+                font-size: 0.8em;
+            }
+
+            .summary-row {
+                font-size: 0.8em;
+            }
+
+            .summary-row.total {
+                font-size: 1em;
+                margin-top: 10px;
+                padding-top: 5px;
+            }
+
+            .authorised-sign {
+                width: 100px;
+            }
+
+            .derecha {
+                font-size: 25px;
+            }
+
+            .terms-conditions {
+                border-bottom: none;
+            }
+
+            .summary-totals {
+                border-top: none;
+            }
+
+            .contenedor1 {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .contenedor1 img {
+                margin: 0px 0px;
+            }
+
+            .contenedor1 p {
+                margin: 5px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .contenedor1 {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .contenedor2 {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .contenedor1 p {
+                margin: 5px;
+            }
+        }
+    </style>
+
+    <div class="factura">
+        <div class="contenedor1">
+            <div class="logo-texto">
+                <img src="img/unnamed.png" alt="Brand Logo">
+                <div class="marca">
+                </div>
+            </div>
+            <div class="derecha">
+                <p>INVOICE</p>
+            </div>
+        </div>
+        <div class="contenedor2">
+            <div class="columna-izquierda">
+                <p><strong>Invoice to:</strong></p>
+                <p><strong>Dwayane Clark</strong></p>
+                <div class="small">
+                    <p>24 Dummy Street Area</p>
+                    <p>Location lorem ipsum</p>
+                    <p>570x59x</p>
+                </div>
+            </div>
+
+            <div class="columna-derecha">
+                <div class="linea">
+                    <span class="etiqueta">Invoice#</span>
+                    <span class="valor">52148</span>
+                </div>
+                <div class="linea">
+                    <span class="etiqueta">Date:</span>
+                    <span class="valor">01 / 02 / 2020</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="contenedor3">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SL.</th>
+                            <th>Item Description</th>
+                            <th>Price</th>
+                            <th>Qty.</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Lorem Ipsum Dolor</td>
+                            <td>$50.00</td>
+                            <td>1</td>
+                            <td>$50.00</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Pellentesque id neque ligula</td>
+                            <td>$20.00</td>
+                            <td>3</td>
+                            <td>$60.00</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Interdum et malesuada fames</td>
+                            <td>$10.00</td>
+                            <td>2</td>
+                            <td>$20.00</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Vivamus volutpat faucibus</td>
+                            <td>$90.00</td>
+                            <td>1</td>
+                            <td>$90.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="invoice-summary-area">
+            <div class="thank-you">Thank you for your business</div>
+
+            <div class="summary-layout-container">
+                <div class="left-column-info">
+                    <div class="payment-info">
+                        <h4>Payment Info:</h4>
+                        <p>Account #: 1234 5678 9012</p>
+                        <p>Bank Name: Lorem Ipsum</p>
+                        <p>Bank Details: Add your details</p>
+                    </div>
+
+                    <div class="terms-conditions">
+                        <h4>Terms & Conditions</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam finibus
+                            erat eu lectus pulvinar, non efficitur leo efficitur. Pellentesque porta
+                            nisl nec turpis placerat, quis ullamcorper orci dapibus. Nullam porta.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="summary-totals">
+                    <div class="summary-row">
+                        <span>Sub Total:</span>
+                        <span>$220.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax:</span>
+                        <span>0.00%</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span>$220.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="authorised-sign-container">
+                <span class="authorised-sign">Authorised Sign</span>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

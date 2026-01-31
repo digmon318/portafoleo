@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Cuenta de Restaurante</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #ff7a5c;
+            box-shadow: 0 0 5px rgba(255, 122, 92, 0.4);
+        }
+
+        .radio-group {
+            margin-bottom: 20px;
+        }
+
+        .radio-group p {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .radio-group label {
+            display: block;
+            margin-bottom: 6px;
+            cursor: pointer;
+        }
+
+        .radio-group input {
+            margin-right: 6px;
+        }
+
+        .result {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+        }
+
+        .result p {
+            margin: 8px 0;
+            color: #444;
+        }
+
+        .result span {
+            float: right;
+            font-weight: 600;
+        }
+
+        .total-final {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 2px dashed #ddd;
+            font-size: 18px;
+            color: #ff7a5c;
+        }
+
+        .total-final span {
+            color: #ff7a5c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🍽️ Cuenta del Restaurante</h1>
+
+        <label for="subtotal">Subtotal de la Comida ($):</label>
+        <input type="number" id="subtotal" min="0" value="0" step="0.01" oninput="calcularTotal()">
+
+        <div class="radio-group">
+            <p>Seleccione Tipo de Socio:</p>
+            <label>
+                <input type="radio" name="descuento" value="0" checked onchange="calcularTotal()">
+                No Socio (0%)
+            </label>
+            <label>
+                <input type="radio" name="descuento" value="0.05" onchange="calcularTotal()">
+                Socio Estándar (5%)
+            </label>
+            <label>
+                <input type="radio" name="descuento" value="0.12" onchange="calcularTotal()">
+                Socio Premium (12%)
+            </label>
+        </div>
+
+        <div id="resultado" class="result">
+            <p><strong>Resultados del Cálculo</strong></p>
+            <p>Propina (10%): <span id="propina">$ 0.00</span></p>
+            <p>IVA (11%): <span id="iva">$ 0.00</span></p>
+            <p>Descuento Aplicado: <span id="descuento-aplicado">$ 0.00</span></p>
+            <p class="total-final">Total Final: <span id="total-final">$ 0.00</span></p>
+        </div>
+    </div>
+
+    <script>
+        function calcularTotal() {
+            const subtotalInput = document.getElementById('subtotal');
+            let subtotal = parseFloat(subtotalInput.value);
+            if (isNaN(subtotal) || subtotal < 0) {
+                subtotal = 0;
+                subtotalInput.value = subtotal.toFixed(2);
+            }
+
+            const TASA_PROPINA = 0.10;
+            const TASA_IVA = 0.11;
+
+            const descuentoRadios = document.getElementsByName('descuento');
+            let tasaDescuento = 0;
+            for (const radio of descuentoRadios) {
+                if (radio.checked) {
+                    tasaDescuento = parseFloat(radio.value);
+                    break;
+                }
+            }
+
+            const propina = subtotal * TASA_PROPINA;
+            const iva = subtotal * TASA_IVA;
+            const descuento = subtotal * tasaDescuento;
+
+            const totalFinal = subtotal + propina + iva - descuento;
+
+            document.getElementById('propina').textContent = '$ ' + propina.toFixed(2);
+            document.getElementById('iva').textContent = '$ ' + iva.toFixed(2);
+            document.getElementById('descuento-aplicado').textContent = '$ ' + descuento.toFixed(2);
+            document.getElementById('total-final').textContent = '$ ' + totalFinal.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>

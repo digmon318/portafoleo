@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookware Shop</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+    }
+
+    .top-bar {
+      background: #e7e7e7;
+      color: rgb(61, 61, 61);
+      font-size: 12px;
+      padding: 5px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-bar a {
+      color: rgb(61, 61, 61);
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    .main-header {
+      background: #bebebe;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: rgb(61, 61, 61);
+    }
+
+    .search {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 40px;
+    }
+
+    .search input {
+      width: 300px;
+      padding: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .search button {
+      padding: 9px 20px;
+      border: none;
+      background: #2c2c2c;
+      color: white;
+      cursor: pointer;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 14px;
+    }
+
+    .header-right a {
+      text-decoration: none;
+      color: rgb(61, 61, 61);
+    }
+
+    .cart {
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      margin: 20px;
+    }
+
+    aside {
+      width: 25%;
+      padding: 15px;
+    }
+
+
+    aside h3 {
+      background: linear-gradient(to bottom, #505050 0%, #3a3a3a 100%);
+      color: white;
+      padding: 10px;
+      margin: 0 0 5px;
+      border-radius: 5px;
+      font-size: 16px;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+      border: 1px solid #222;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      text-align: left;
+    }
+
+    aside ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+
+    aside ul li {
+      background: linear-gradient(to bottom, #f0f0f0 0%, #e0e0e0 100%);
+      color: rgb(61, 61, 61);
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 3px;
+      cursor: pointer;
+      border-radius: 3px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      text-align: left;
+      position: relative;
+    }
+
+    aside ul li:hover {
+      background: linear-gradient(to bottom, #e5e5e5 0%, #d5d5d5 100%);
+    }
+
+    aside ul li:first-child::after {
+      content: '»';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: rgb(61, 61, 61);
+    }
+
+    main {
+      width: 75%;
+    }
+
+
+    .hero-image-container {
+      background: white;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .hero-image-container img {
+      width: 100%;
+      height: 400px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .product {
+      background: white;
+      border: 1px solid #ddd;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .product img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .price {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+
+    .category-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: white;
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+
+    .category-item img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+
+    .category-button {
+      background: linear-gradient(to bottom, #f0f0f0 0%, #e0e0e0 100%);
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      text-align: center;
+      padding: 8px 15px;
+      cursor: pointer;
+      position: relative;
+      color: rgb(61, 61, 61);
+      text-decoration: none;
+      font-weight: bold;
+      width: calc(100% - 30px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .category-button:hover {
+      background: linear-gradient(to bottom, #e5e5e5 0%, #d5d5d5 100%);
+    }
+
+
+    .category-button::after {
+      content: '»';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: rgb(61, 61, 61);
+    }
+
+
+    .featured-bar {
+      background: #2c2c2c;
+      color: white;
+      padding: 10px 15px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+
+    .featured {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      background: #bebebe;
+      color: rgb(61, 61, 61);
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+    }
+
+    footer div {
+      width: 25%;
+    }
+
+    footer h4 {
+      border-bottom: 1px solid rgb(61, 61, 61);
+      padding-bottom: 5px;
+    }
+
+    .product {
+      background: white;
+      border: 1px solid #ddd;
+      text-align: center;
+      padding: 10px;
+      border-radius: 6px;
+      margin: auto;
+    }
+
+    .product img {
+      width: 300px;
+     max-height: 150px;
+      object-fit: contain;
+    }
+
+    .price {
+      font-weight: bold;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .featured_p {
+      background-color: #363636;
+      color: white;
+      padding: 20px;
+    }
+
+    .product .old-price {
+      text-decoration: line-through;
+      color: #999;
+      margin-right: 5px;
+    }
+
+    .product .new-price {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    .product .discount {
+      background: #e74c3c;
+      color: #fff;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 5px;
+    }
+
+    .add-to-cart {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      text-align: left;
+      width: fit-content;
+    }
+
+    .add-to-cart:hover {
+      background: #e67e22;
+    }
+
+    .add-to-cart.disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .special-offers {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 20px;
+      flex-wrap: nowrap;
+      /* 🔹 evita que se bajen */
+    }
+
+    .offer {
+      flex: 1 1 30%;
+      min-width: 270px;
+      /* 🔹 evita que sean muy angostas */
+      max-width: 300px;
+      /* 🔹 ancho ideal */
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-align: center;
+    }
+
+    .offer img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .offer p {
+      margin-top: 8px;
+      line-height: 1.4;
+      color: #333;
+    }
+
+    .featured p {
+      text-align: left;
+    }
+
+    .offer:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .categories,
+    .featured {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    .categories button {
+      width: 100%;
+      height: 8%;
+      align-content: end;
+    }
+
+    @media (max-width: 400px) {
+      .main-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .search {
+        margin: 10px 0;
+        width: 100%;
+      }
+
+      .header-right {
+        justify-content: center;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+      aside,
+      main {
+        width: 100%;
+        padding: 10px;
+      }
+
+      .categories,
+      .featured {
+        grid-template-columns: 1fr;
+      }
+
+      .special-offers {
+        flex-direction: column;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      footer div {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .main-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .search {
+        margin: 10px 0;
+        width: 100%;
+      }
+
+      .header-right {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+      aside,
+      main {
+        width: 100%;
+        padding: 10px;
+      }
+
+      .categories,
+      .featured {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .special-offers {
+        flex-direction: column;
+
+      }
+
+      footer {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      footer div {
+        width: 45%;
+        min-width: 200px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .main-header {
+        flex-wrap: wrap;
+        text-align: center;
+      }
+
+      .search {
+        margin: 10px 0;
+        width: 100%;
+      }
+
+      .header-right {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+      aside,
+      main {
+        width: 100%;
+      }
+
+      .categories,
+      .featured {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .special-offers {
+        flex-direction: column;
+      }
+
+      footer {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      footer div {
+        width: 45%;
+        min-width: 250px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .top-bar {
+        flex-direction: column;
+        text-align: center;
+        font-size: 10px;
+        padding: 5px;
+      }
+
+      .main-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .search {
+        width: 100%;
+        margin: 10px 0;
+      }
+
+      .search input {
+        width: 80%;
+      }
+
+      .header-right {
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 10px;
+      }
+
+      .container {
+        flex-direction: column;
+        margin: 10px;
+      }
+
+      aside,
+      main {
+        width: 100%;
+        padding: 0;
+      }
+
+      .hero-image-container img {
+        height: auto;
+      }
+
+      .categories,
+      .featured {
+        grid-template-columns: 1fr;
+      }
+
+      .special-offers {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+      }
+
+      footer div {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-bar">
+    <div>
+      <a href="#">Contact</a> |
+      <a href="#">Sitemap</a>
+    </div>
+    <div>
+      <a href="#">Language: English</a> |
+      <a href="#">Currency: USD</a>
+    </div>
+  </div>
+  <div class="main-header">
+    <div class="logo">Cookware</div>
+
+    <div class="search">
+      <input type="text" placeholder="Search products...">
+      <button>Search</button>
+    </div>
+
+    <div class="header-right">
+      <a href="#">👤 Your Account</a>
+      <a href="#">💳 Checkout</a>
+      <div class="cart">🛒 (0)</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <aside>
+      <h3>Categories</h3>
+      <ul>
+        <li>Cookware</li>
+        <li>Cook Tools</li>
+        <li>Cutlery</li>
+        <li>Electrics</li>
+        <li>Bakeware</li>
+        <li>Tabletop</li>
+        <li>Bar</li>
+        <li>Housekeeping</li>
+        <li>Outdoor</li>
+      </ul>
+
+      <h3>Specials</h3>
+      <div class="product">
+        <img src="https://http2.mlstatic.com/D_NQ_NP_973684-MCO73849183746_012024-O.webp" alt="Special">
+        <p class="price">$13.74 <del>$16.10</del></p>
+      </div>
+
+      <div class="product">
+        <h3>Special offer!</h3>
+        <p>Save up to 30% on Cooking items</p>
+        <img
+          src="https://www.nj.com/resizer/v2/53WJC3KJ3NCGLH4DXVO7ZT2BNM.png?auth=aabe19b2ea08b57d79f65c270829ef8cf07eb770cc6252d39e4e0b4dc83c18e5&width=1280&quality=90"
+          alt="Special offer">
+        <button>Shop Now</button>
+      </div>
+    </aside>
+
+    <main>
+      <div class="hero-image-container">
+        <img src="https://www.shutterstock.com/image-photo/large-banner-view-white-modern-600nw-2287798841.jpg"
+          alt="Large Cookware Set">
+      </div>
+
+      <div class="categories">
+        <div class="product"><img
+            src="https://previews.123rf.com/images/urfingus/urfingus1710/urfingus171000302/87756183-set-of-saucepans-isolated-on-white-background-3d-illustration.jpg"><button>Cookware
+            Sets =></button></div>
+        <div class="product"><img
+            src="https://previews.123rf.com/images/kitch/kitch1006/kitch100600171/7237343-a-set-of-saucepans-and-a-frying-pan-isolated-against-a-white-background.jpg">
+          <button>Cooking Utensils =></button>
+        </div>
+        <div class="product"><img src="https://m.media-amazon.com/images/I/51UJ9EyxKVL.jpg"><button>Ovenware =></button>
+        </div>
+        <div class="product"><img
+            src="https://steakchamp.de/cdn/shop/files/5010_GrillPan_sq26_04_1200x1200.jpg?v=1721839847"><button>Grill
+            Pans => </button></div>
+        <div class="product"><img
+            src="https://www.shutterstock.com/image-illustration/coffee-roaster-machine-on-white-600nw-2464629879.jpg"><button>Roasters
+            =></button></div>
+        <div class="product"><img
+            src="https://http2.mlstatic.com/D_NQ_NP_981175-MCO73005795105_112023-O.webp"><button>Woks =></button></div>
+        <div class="product"><img src="https://m.media-amazon.com/images/I/71-YmastH6L.jpg"><button>Saucepans =></button>
+        </div>
+        <div class="product"><img
+            src="https://lerouxkitchen.com/cdn/shop/files/le_creuset_signature_round_oven_5.5_qt_-_caribbean.png?v=1713801370&width=2000"><button>Dutch
+            Ovens =></button></div>
+        <div class="product"><img
+            src="https://thumbs.dreamstime.com/b/set-sharp-knives-white-background-top-view-set-sharp-knives-white-background-149576903.jpg"><button>Knives
+            ></button></div>
+      </div>
+      <div>
+        <h2 class="featured_p">Featured products</h2>
+      </div>
+      <div class="featured">
+        <div class="product"> <img
+            src="https://media.istockphoto.com/id/178176225/photo/stainless-steel-bowl.jpg?s=612x612&w=0&k=20&c=SOyfLyUcuG-FtfPfzaRiA0e2wqbF4RsjfkQAXyYQ2_A=">
+          <p>Mixing Bowl</p>
+          <p class="price"><span class="old-price">$96.36</span> <span class="new-price">$91.19</span> <span
+              class="discount">-5%</span></p> <button class="add-to-cart">🛒 ADD TO CART</button>
+        </div>
+        <div class="product"> <img
+            src="https://media.istockphoto.com/id/120874807/photo/modern-coffee-machine-isolated-on-white-background-with-clipping-path.jpg?s=612x612&w=0&k=20&c=_X3cdr1N5Cb8VjN_44v1i6ylbgUyjiiyR1Eqa7GDkjA=">
+          <p>Coffee Maker</p>
+          <p class="price">$173.15</p> <button class="add-to-cart">🛒 ADD TO CART</button>
+        </div>
+        <div class="product"> <img src="https://m.media-amazon.com/images/I/71t1guLU2lL.jpg">
+          <p>Silicone Oven Mitt</p>
+          <p class="price">$11.25</p> <button class="add-to-cart disabled">🛒 ADD TO CART</button>
+        </div>
+        <div class="product"> <img src="https://m.media-amazon.com/images/I/71CzD+eRG3L._UF894,1000_QL80_.jpg">
+          <p>Pressure Cooker</p>
+          <p class="price"><span class="old-price">$56.36</span> <span class="new-price">$54.56</span> <span
+              class="discount">-3%</span></p> <button class="add-to-cart">🛒 ADD TO CART</button>
+        </div>
+        <div class="product"> <img src="https://www.haegergroup.com/wp-content/uploads/KS-BME.010A_1-1.jpg">
+          <p>Kitchen Scale</p>
+          <p class="price">$24.15</p> <button class="add-to-cart">🛒 ADD TO CART</button>
+        </div>
+        <div class="product"> <img
+            src="https://thumbs.dreamstime.com/b/copper-pan-3921618.jpg">
+          <p>Copper Pan</p>
+          <p class="price">$64.15</p> <button class="add-to-cart">🛒 ADD TO CART</button>
+        </div>
+      </div>
+      <div>
+      </div>
+      <div class="featured">
+        <div class="special-offers">
+          <div class="offer"> <img
+              src="https://media.istockphoto.com/id/1888222333/es/foto/bandeja-paisa-plato-t%C3%ADpico-paisa-frijoles-medell%C3%ADn-antioquia-paisa.jpg?s=612x612&w=0&k=20&c=WJ9giATv9FeXWoNwcsoyGZUSz7E-Y93oD-Zwl-wzsKA="
+              alt="Oferta 1">
+            <p>Special offer</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore eaque sint cum quaerat impedit alias
+              soluta, placeat perferendis, deserunt quae temporibus iusto sit esse, corporis nobis reiciendis debitis!
+              Quo, magnam!</p>
+          </div>
+          <div class="offer"> <img
+              src="https://img.freepik.com/foto-gratis/primer-plano-carne-asada-salsa-verduras-patatas-fritas-plato-sobre-mesa_181624-35847.jpg?semt=ais_incoming&w=740&q=80"
+              alt="Oferta 2">
+            <p>Special offer</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore eaque sint cum quaerat impedit alias
+              soluta, placeat perferendis, deserunt quae temporibus iusto sit esse, corporis nobis reiciendis debitis!
+              Quo, magnam!</p>
+          </div>
+          <div class="offer"> <img
+              src="https://www.unileverfoodsolutions.com.mx/tendencias/de-mexico-para-el-mundo/platillos-mexicanos/top10-platillos/jcr:content/parsys/content-aside-footer/columncontrol_copy/columnctrl_parsys_1/textimage_copy/image.transform/jpeg-optimized/image.1592429867593.jpg"
+              alt="Oferta 3">
+            <p>Special offer</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore eaque sint cum quaerat impedit alias
+              soluta, placeat perferendis, deserunt quae temporibus iusto sit esse, corporis nobis reiciendis debitis!
+              Quo, magnam!</p>
+          </div>
+        </div>
+    </main>
+  </div>
+  <footer>
+    <div>
+      <h4>Information</h4>
+      <p>Delivery</p>
+      <p>Legal Notice</p>
+      <p>Terms and Conditions</p>
+      <p>About Us</p>
+      <p>Contact Us</p>
+      <p>Sitemap</p>
+    </div>
+    <div>
+      <h4>Categories</h4>
+      <p>Cookware</p>
+      <p>Cutlery</p>
+      <p>Cook Tools</p>
+    </div>
+    <div>
+      <h4>Follow us</h4>
+      <p>Facebook</p>
+      <p>Twitter</p>
+      <p>RSS</p>
+    </div>
+    <div>
+      <h4>Cookware</h4>
+      <p>Your Company Address</p>
+      <p>Email: info@cookware.com</p>
+    </div>
+  </footer>
+</body>
+
+</html>

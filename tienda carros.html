@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commercial Vehicles - Demo</title>
+  <style>
+    :root {
+      --black: #111;
+      --dark: #0f0f0f;
+      --yellow: #f6c200;
+      --muted: #777;
+      --card-bg: #fff;
+      --soft: #f6f6f6;
+      --accent: #222;
+      --container: 1200px;
+      box-sizing: border-box;
+    }
+
+    * {
+      box-sizing: inherit
+    }
+
+    body {
+      font-family: Inter, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      color: var(--dark);
+      background: #fafafa
+    }
+
+    /* Top contact bar */
+    .topbar {
+      background: #0b0b0b;
+      color: #fff;
+      font-size: 13px;
+      padding: 8px 0
+    }
+
+    .topbar .wrap {
+      max-width: var(--container);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px
+    }
+
+    .topbar a {
+      color: #ddd;
+      text-decoration: none;
+      margin-left: 12px
+    }
+
+    /* Header */
+    header {
+      position: relative
+    }
+
+    .navbar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      background-color: #727271;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      margin: 0;
+      padding: 18px 40px;
+      padding-left: 200px;
+
+      max-width: none;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 20px;
+      color: var(--yellow)
+    }
+
+    nav ul {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      padding-left: 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 10px;
+      font-weight: 600
+    }
+
+    /* Hero */
+    .hero {
+      background-image: url('https://wallpapers.com/images/hd/greyscale-car-4k-mercedes-benz-slr-ea3yxs8e67jhs5ai.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 360px;
+      position: relative;
+      color: #fff
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.75))
+    }
+
+    .hero .wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 30px
+    }
+
+    .hero .kpi {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: 1px
+    }
+
+    .hero .subtitle {
+      margin-top: 8px;
+      color: #eee
+    }
+
+    /* Search box */
+    .search-box {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 18px;
+      border-radius: 4px;
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .search-box select,
+    .search-box input {
+      padding: 10px;
+      border-radius: 3px;
+      border: 0;
+      background: #fff;
+      min-width: 150px
+    }
+
+    .search-box .btn {
+      background: var(--yellow);
+      border: none;
+      padding: 11px 18px;
+      border-radius: 3px;
+      font-weight: 700
+    }
+
+    /* Main content */
+    main {
+      max-width: var(--container);
+      margin: 28px auto;
+      padding: 0 20px
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px
+    }
+
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 6px;
+      padding: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      text-align: end;
+    }
+
+    .card .img {
+      height: 110px;
+      background: #eee;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .card h3 {
+      margin: 10px 0 6px;
+      font-size: 15px
+    }
+
+    .price {
+      background: var(--yellow);
+      display: inline-block;
+      padding: 6px 8px;
+      border-radius: 3px;
+      font-weight: 700;
+      color: #111
+    }
+
+    .meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px
+    }
+
+    .show-all {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0
+    }
+
+    .show-all button {
+      background: var(--yellow);
+      border: 0;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: 700
+    }
+
+    /* Stats banner */
+    .stats {
+      background-image: url('https://wallpapers.com/images/hd/car-4k-blue-bmw-m3-40eh119iuwimxmwb.jpg');
+      background-size: cover;
+      background-position: center;
+      margin: 40px 0;
+      position: relative;
+      width: 100%;
+    }
+
+    .stats::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6)
+    }
+
+    .stats .wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
+      padding: 28px 20px;
+      color: #fff
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center
+    }
+
+    .stat strong {
+      font-size: 28px
+    }
+
+    /* News */
+    .news {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 10px
+    }
+
+    .news .news-card {
+      background: #fff;
+      padding: 10px;
+      border-radius: 6px
+    }
+
+    .news .news-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 4px
+    }
+
+    .news .news-card p {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    /* ===== FOOTER ===== */
+
+    .footer {
+      width: 100%;
+      background: #111;
+      color: #fff;
+      padding-top: 40px;
+      margin-top: 60px;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Top bar (search input) */
+    .footer-top {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 25px;
+
+    }
+
+    .footer-top input {
+      width: 320px;
+      padding: 12px 15px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      background-color: black;
+      color: white;
+    }
+
+    /* Center links */
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .footer-links a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    /* Bottom section */
+    .footer-bottom {
+      border-top: 1px solid #333;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom p {
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .footer-bottom span {
+      color: #ffcc00;
+      /* Color amarillo del logo */
+      font-weight: bold;
+    }
+
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      font-size: 19px;
+    }
+
+    .social-icons i {
+      cursor: pointer;
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .social-icons i:hover {
+      opacity: 1;
+    }
+
+    /* Responsive */
+    @media (max-width:1000px) {
+      .cars-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .news {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media (max-width:760px) {
+      .navbar nav {
+        display: none
+      }
+
+      .hero {
+        height: 420px
+      }
+
+      .cars-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .news {
+        grid-template-columns: 1fr
+      }
+
+      .search-box {
+        flex-wrap: wrap
+      }
+
+      .search-box select,
+      .search-box input {
+        flex: 1 1 46%
+      }
+    }
+
+    @media (max-width:420px) {
+      .cars-grid {
+        grid-template-columns: 1fr
+      }
+
+      .topbar .wrap {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start
+      }
+
+      .hero .kpi {
+        font-size: 30px
+      }
+
+      .hero {
+        height: 320px
+      }
+    }
+
+    .item {
+      background-color: #f6c200;
+      padding: 15px;
+      color: white;
+      font-size: 15px;
+    }
+
+    .perfil {
+      max-width: 40px;
+      max-height: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div>📞 +65 6783 1231 &nbsp; | &nbsp; 1001 Bukit Merah Lane</div>
+      <div>Mon - Sat: 8.00 - 18.00 &nbsp; | &nbsp; <a href="#">Login</a> <a href="#">Register</a></div>
+    </div>
+  </div>
+
+  <header>
+    <div class="navbar">
+      <div class="brand">
+        <img
+          src="https://png.pngtree.com/png-clipart/20240905/original/pngtree-racing-automobile-car-logo-with-color-splashes-vector-png-image_15944089.png"
+          alt="logo" style="height:36px;border-radius:4px">
+        <h1>Commercial Vehicles</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">All Vehicles</a></li>
+          <li><a href="#">Dealers</a></li>
+          <li><a href="#">Contact</a></li>
+          <img class="perfil" src="perfil-Photoroom.png" alt="">
+          <button class="item">🚗 Add your item</button>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="hero">
+      <div class="wrap">
+        <div class="kpi">15 000+ <span style="font-size:18px;display:block;color:#fff;opacity:0.9">Vehicle
+            Available</span></div>
+        <div class="subtitle">Encuentra la mejor flota para tu negocio — nuevos y usados</div>
+
+        <div class="search-box" style="margin-top:20px">
+          <select aria-label="condition">
+            <option>All condition</option>
+            <option>New Cars</option>
+            <option>Used Cars</option>
+          </select>
+          <select aria-label="make">
+            <option>Choose Make</option>
+            <option>Mercedes</option>
+            <option>Volkswagen</option>
+          </select>
+          <select aria-label="model">
+            <option>Choose Model</option>
+          </select>
+          <input type="text" placeholder="Max Price" />
+          <button class="btn">Search</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="section-title">
+        <h2>New/Used Cars</h2>
+        <div style="color:var(--muted);font-size:14px">Featured Items</div>
+      </div>
+
+      <div class="cars-grid">
+        <!-- Repeat card -->
+        <article class="card">
+          <div class="img"><img
+              src="https://www.topgear.com/sites/default/files/2024/04/TopGear%20-%20First%20Drive%20-%20BMW%205%20Series%202024-031.jpg"
+              alt="car"></div>
+          <h3>BMW 5 Series <small style="color:var(--muted);font-weight:600">2015</small></h3>
+          <div class="price">$45 000</div>
+          <div class="meta">80k km · Automatic · Diesel</div>
+        </article>
+
+        <article class="card">
+          <div class="img"><img
+              src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=60"
+              alt="car"></div>
+          <h3>Mercedes Vito <small style="color:var(--muted);font-weight:600">2016</small></h3>
+          <div class="price">$32 000</div>
+          <div class="meta">65k km · Automatic · Diesel</div>
+        </article>
+
+        <article class="card">
+          <div class="img"><img
+              src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=800&q=60"
+              alt="car"></div>
+          <h3>Nissan Altima <small style="color:var(--muted);font-weight:600">2015</small></h3>
+          <div class="price">$28 000</div>
+          <div class="meta">70k km · Automatic</div>
+        </article>
+
+        <article class="card">
+          <div class="img"><img
+              src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=60"
+              alt="car"></div>
+          <h3>Ford Explorer <small style="color:var(--muted);font-weight:600">2015</small></h3>
+          <div class="price">$36 000</div>
+          <div class="meta">90k km · Automatic</div>
+        </article>
+
+        <!-- more cards to fill grid -->
+        <article class="card">
+          <div class="img"><img
+              src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=800&q=60" alt="car">
+          </div>
+          <h3>Chevrolet Malibu <small style="color:var(--muted);font-weight:600">2015</small></h3>
+          <div class="price">$21 500</div>
+          <div class="meta">120k km · Semi-automatic</div>
+        </article>
+
+        <article class="card">
+          <div class="img"><img src="https://www.auto-data.net/images/f58/Chevrolet-Cruze-Hatchback.jpg" alt="car">
+          </div>
+          <h3>Chevrolet Cruze <small style="color:var(--muted);font-weight:600">2015</small></h3>
+          <div class="price">$23 000</div>
+          <div class="meta">95k km · Automatic</div>
+        </article>
+
+        <article class="card">
+          <div class="img"><img
+              src="https://es.nissanusa.com/content/dam/Nissan/us/vehicles/discontinuedvehicles/nv-passenger/nissan-nv-passenger-van-towing-capacity.jpg"
+              alt="car"></div>
+          <h3>Nissan NV <small style="color:var(--muted);font-weight:600">2017</small></h3>
+          <div class="price">$26 500</div>
+          <div class="meta">85k km · Automatic</div>
+        </article>
+
+        <article class="card">
+          <div class="img"><img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaWUNS5nBMVAPhqm03uqfP4IYk8AVCYZimdw&s"
+              alt="car"></div>
+          <h3>Mercedes C-Class <small style="color:var(--muted);font-weight:600">2015</small></h3>
+          <div class="price">$49 000</div>
+          <div class="meta">60k km · Automatic</div>
+        </article>
+
+      </div>
+
+      <div class="show-all"><button>Show All</button></div>
+    </section>
+
+    <section class="stats">
+      <div class="wrap">
+        <div class="stat"><strong>15500+</strong><span>Cars For Sale</span></div>
+        <div class="stat"><strong>1750+</strong><span>Visitors Per Day</span></div>
+        <div class="stat"><strong>3500+</strong><span>Dealer Reviews</span></div>
+        <div class="stat"><strong>250+</strong><span>Verified Dealers</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>News & Reviews</h2>
+      <div class="news">
+        <article class="news-card">
+          <img src="https://i.blogs.es/39ac19/model-s-update-5/1366_2000.jpg" alt="news">
+          <h4>Tesla Model S: Top Secret Car Collector's Garage</h4>
+          <p class="meta">November 18, 2015 · No Comments</p>
+        </article>
+        <article class="news-card">
+          <img src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=800&q=60"
+            alt="news">
+          <h4>Tap yourself on the back for being a savvy car shopper</h4>
+          <p class="meta">December 21, 2015 · No Comments</p>
+        </article>
+        <article class="news-card">
+          <img src="https://acnews.blob.core.windows.net/imgnews/large/NAZ_fa913f5427ae44f0acaa1e24c3ac8d2c.jpg"
+            alt="news">
+          <h4>How The New Mercedes-Benz SLS AMG on the track</h4>
+          <p class="meta">December 1, 2015 · No Comments</p>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+
+    <div class="footer-links">
+      <div class="footer-top">
+        <input type="text" placeholder="Enter Make or Model">
+      </div>
+      <a href="#">Terms of Service</a>
+      <a href="#">Privacy Statement</a>
+      <a href="#">Ad Choices</a>
+      <a href="#">About Us</a>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2016 <span>Commercial Vehicles</span> | Trademarks and brands are the property of their respective owners.
+      </p>
+
+      <div class="social-icons">
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-linkedin-in"></i>
+        <i class="fab fa-youtube"></i>
+      </div>
+    </div>
+  </footer>
+</body>
+
+
+</html>

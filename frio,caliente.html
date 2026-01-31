@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Juego de Temperaturas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle, #0f0f1f, #000);
+        font-family: 'Segoe UI', sans-serif;
+        color: white;
+        background-image:url(https://img.freepik.com/fotos-premium/elemento-abstracto-fuego-hielo-concepto-calor-frio_163855-18.jpg);
+        background-size: cover;
+    }
+
+    .game {
+        background: #111;
+        border: 5px solid #00ffff;
+        border-radius: 20px;
+        padding: 30px;
+        width: 360px;
+        text-align: center;
+        transition: all 0.4s ease;
+        box-shadow: 0 0 25px #00ffff;
+    }
+
+    h1 {
+        margin-top: 0;
+        color: #00ffff;
+        text-shadow: 0 0 10px #00ffff;
+    }
+
+    .timer {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        color: #ff4d4d;
+    }
+
+    input {
+        width: 80%;
+        padding: 12px;
+        font-size: 1.2rem;
+        text-align: center;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 85%;
+        padding: 12px;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        background: #00ffff;
+        color: #000;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #00cccc;
+    }
+
+    button:disabled {
+        background: gray;
+        cursor: not-allowed;
+    }
+
+    .message {
+        margin-top: 15px;
+        font-size: 1.3rem;
+        min-height: 40px;
+    }
+
+    .history {
+        margin-top: 15px;
+        font-size: 0.9rem;
+        color: #aaa;
+    }
+
+    /* TEMPERATURAS */
+    .hot {
+        border-color: red;
+        box-shadow: 0 0 30px red;
+        background: #2a0000;
+    }
+
+    .warm {
+        border-color: orange;
+        box-shadow: 0 0 30px orange;
+        background: #2a1a00;
+    }
+
+    .cold {
+        border-color: #00aaff;
+        box-shadow: 0 0 30px #00aaff;
+        background: #001a2a;
+    }
+
+    .win {
+        border-color: #00ff88;
+        box-shadow: 0 0 40px #00ff88;
+        background: #002a12;
+        animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="game" id="game">
+    <h1>🎯 Número Secreto</h1>
+    <div class="timer" id="timer">30</div>
+
+    <input type="number" id="guess" placeholder="1 - 100" min="1" max="100">
+    <br>
+    <button id="btn">Probar</button>
+
+    <div class="message" id="message"></div>
+    <div class="history" id="history">Intentos previos: —</div>
+</div>
+
+<script>
+    const secretNumber = Math.floor(Math.random() * 100) + 1;
+    let time = 30;
+    let attempts = [];
+    let gameOver = false;
+
+    const timerEl = document.getElementById("timer");
+    const input = document.getElementById("guess");
+    const button = document.getElementById("btn");
+    const message = document.getElementById("message");
+    const history = document.getElementById("history");
+    const game = document.getElementById("game");
+
+    const countdown = setInterval(() => {
+        time--;
+        timerEl.textContent = time;
+
+        if (time <= 0) {
+            endGame(false);
+        }
+    }, 1000);
+
+    function endGame(win) {
+        clearInterval(countdown);
+        gameOver = true;
+        input.disabled = true;
+        button.disabled = true;
+
+        if (!win) {
+            message.textContent = `¡Tiempo Agotado! ☠️ El número era ${secretNumber}`;
+            game.className = "game cold";
+        }
+    }
+
+    function checkGuess() {
+        if (gameOver) return;
+
+        const value = Number(input.value);
+        if (!value || value < 1 || value > 100) return;
+
+        attempts.push(value);
+        history.textContent = "Intentos previos: " + attempts.join(" - ");
+
+        const distance = Math.abs(secretNumber - value);
+
+        game.className = "game";
+
+        if (distance === 0) {
+            message.textContent = "🏆 ¡VICTORIA! Adivinaste el número";
+            game.classList.add("win");
+            endGame(true);
+            return;
+        }
+
+        if (distance <= 5) {
+            message.textContent = "🔥 ¡CALIENTE!";
+            game.classList.add("hot");
+        } else if (distance <= 15) {
+            message.textContent = "🟡 TIBIO";
+            game.classList.add("warm");
+        } else {
+            message.textContent = "❄️ FRÍO";
+            game.classList.add("cold");
+        }
+
+        input.value = "";
+        input.focus();
+    }
+
+    button.addEventListener("click", checkGuess);
+    input.addEventListener("keydown", e => {
+        if (e.key === "Enter") checkGuess();
+    });
+</script>
+
+</body>
+</html>

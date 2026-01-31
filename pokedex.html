@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+
+    <style>
+        html, body {
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        body {
+            background-image: url("https://wallpapercave.com/wp/wp8813120.jpg");
+            background-size: cover;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background-color: rgb(55, 85, 141);
+            padding: 10px 30px;
+            color: yellow;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .busqueda {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .busqueda input {
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            width: 180px;
+        }
+
+        .busqueda button {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contenedor-principal {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 20px auto;
+        }
+
+        .contenedor-img {
+            width: 50%;
+            height: 680px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.5s ease;
+        }
+
+        #img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .info {
+            height: 680px;
+            width: 45%;
+            color: black;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            transition: background 0.5s ease;
+        }
+
+        .info h1 {
+            font-size: 45px;
+            margin: 0 0 10px 0;
+            text-transform: capitalize;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .info h3 {
+            font-size: 24px;
+            margin: 15px 0 5px 0;
+        }
+
+        .info p {
+            font-size: 22px;
+            margin: 5px 0;
+        }
+
+        #stats-container {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .stat-name {
+            width: 150px;
+            text-align: right;
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .stat-value {
+            width: 40px;
+            text-align: left;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .progress-bar-container {
+            flex-grow: 1;
+            height: 12px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #ffcb05;
+            transition: width 0.8s ease-out;
+        }
+
+        .tipo-container {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .tipo-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tipo-tag {
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        #descripcion {
+            margin-top: 15px;
+            font-size: 20px;
+            line-height: 1.4;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+        }
+
+        .contenedor-abajo {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 10px auto;
+        }
+
+        .foteer {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            width: 900px;
+            font-size: 24px;
+            gap: 20px;
+            justify-content: space-around;
+            transition: background 0.5s ease;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Pokedex</h1>
+
+        <div class="busqueda">
+            <input id="pok" type="text" placeholder="Nombre o número">
+            <button onclick="traer()">Buscar</button>
+        </div>
+    </div>
+
+    <div class="contenedor-principal">
+        <div class="contenedor-img">
+            <img id="img" alt="Imagen del Pokémon">
+        </div>
+
+        <div class="info">
+            <h1 id="nombre"></h1>
+            <h3 id="numero"></h3>
+
+            <p id="altura"></p>
+            <p id="peso"></p>
+
+            <h3 style="margin-top: 20px;">Estadísticas Base</h3>
+            <div id="stats-container"></div>
+
+            <div id="tipos-container" class="tipo-container">
+                <h3>Tipos</h3>
+                <div id="tipos-flex" class="tipo-flex"></div>
+            </div>
+
+            <div id="debilidades-container" class="tipo-container">
+                <h3>Debilidades</h3>
+                <div id="debilidades-flex" class="tipo-flex"></div>
+            </div>
+
+            <h3 style="margin-top:20px;">Descripción</h3>
+            <div id="descripcion"></div>
+
+        </div>
+    </div>
+
+    <div class="contenedor-abajo">
+        <div class="foteer">
+            <p id="numeroFooter"></p>
+            <p id="nombreFooter"></p>
+            <p id="alturaFooter"></p>
+            <p id="pesoFooter"></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+        async function cargarDescripcion(id) {
+            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+            const data = res.data;
+
+            let texto = data.flavor_text_entries.find(
+                e => e.language.name === "es"
+            )?.flavor_text || "Sin descripción disponible.";
+
+            texto = texto.replace(/\n|\f/g, " ");
+
+            document.getElementById("descripcion").textContent = texto;
+        }
+
+        const TYPE_COLORS = {
+            'normal': '#A8A878',
+            'fire': '#F08030',
+            'water': '#6890F0',
+            'electric': '#F8D030',
+            'grass': '#78C850',
+            'ice': '#98D8D8',
+            'fighting': '#C03028',
+            'poison': '#A040A0',
+            'ground': '#E0C068',
+            'flying': '#A890F0',
+            'psychic': '#F85888',
+            'bug': '#A8B820',
+            'rock': '#B8A038',
+            'ghost': '#705898',
+            'dragon': '#7038F8',
+            'steel': '#B8B8D0',
+            'dark': '#705848',
+            'fairy': '#EE99AC',
+        };
+
+        function getTypeColor(typeName) {
+            return TYPE_COLORS[typeName.toLowerCase()] || '#CCCCCC';
+        }
+
+        function applyTypeColors(types) {
+            const imgContainer = document.querySelector('.contenedor-img');
+            const infoContainer = document.querySelector('.info');
+            const footerContainer = document.querySelector('.foteer');
+
+            let colorBackground;
+
+            if (types.length === 1) {
+                colorBackground = getTypeColor(types[0].type.name);
+            } else if (types.length >= 2) {
+                const c1 = getTypeColor(types[0].type.name);
+                const c2 = getTypeColor(types[1].type.name);
+                colorBackground = `linear-gradient(to bottom, ${c1}, ${c2})`;
+            } else {
+                colorBackground = "#FFFFFF";
+            }
+
+            imgContainer.style.background = colorBackground;
+            infoContainer.style.background = colorBackground;
+
+            const baseColor = getTypeColor(types[0]?.type?.name || "unknown");
+            footerContainer.style.background = `${baseColor}E0`;
+        }
+
+        function renderStats(stats) {
+            const statsContainer = document.getElementById('stats-container');
+            statsContainer.innerHTML = '';
+            const maxStat = 255;
+
+            stats.forEach(stat => {
+                const value = stat.base_stat;
+                const name = stat.stat.name.toUpperCase();
+                const percentage = (value / maxStat) * 100;
+
+                statsContainer.innerHTML += `
+                    <div class="stats-bar">
+                        <div class="stat-name">${name}:</div>
+                        <div class="stat-value">${value}</div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderTypes(types) {
+            const cont = document.getElementById('tipos-flex');
+            cont.innerHTML = "";
+
+            types.forEach(t => {
+                const tag = document.createElement("div");
+                tag.className = "tipo-tag";
+                tag.style.backgroundColor = getTypeColor(t.type.name);
+                tag.textContent = t.type.name.toUpperCase();
+                cont.appendChild(tag);
+            });
+        }
+
+        async function renderWeaknesses(types) {
+            const weaknesses = await fetchTypeDamage(types);
+            const cont = document.getElementById("debilidades-flex");
+            cont.innerHTML = "";
+
+            weaknesses.forEach(w => {
+                const tag = document.createElement("div");
+                tag.className = "tipo-tag";
+                tag.style.backgroundColor = getTypeColor(w.name);
+                tag.textContent = w.name.toUpperCase();
+                cont.appendChild(tag);
+            });
+        }
+
+        async function fetchTypeDamage(types) {
+            let doubleDamage = new Set();
+            let halfDamage = new Set();
+            let noDamage = new Set();
+
+            for (const t of types) {
+                const res = await axios.get(t.type.url);
+                const d = res.data.damage_relations;
+
+                d.double_damage_from.forEach(dt => doubleDamage.add(dt.name));
+                d.half_damage_from.forEach(ht => halfDamage.add(ht.name));
+                d.no_damage_from.forEach(nt => noDamage.add(nt.name));
+            }
+
+            let final = Array.from(doubleDamage).filter(type =>
+                !halfDamage.has(type) && !noDamage.has(type)
+            );
+
+            return final.map(n => ({ name: n }));
+        }
+
+        async function traer() {
+            let pokemon = document.getElementById("pok").value.toLowerCase().trim();
+
+            if (!pokemon) {
+                alert("Escribe un nombre o número");
+                return;
+            }
+
+            try {
+                const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+                const data = res.data;
+
+                let nombre = data.name;
+                let numero = "#" + data.id;
+                let peso = (data.weight / 10).toFixed(1) + " kg";
+                let altura = (data.height / 10).toFixed(1) + " m";
+
+                applyTypeColors(data.types);
+
+                document.getElementById("img").src =
+                    data.sprites.other["official-artwork"]["front_default"];
+
+                renderStats(data.stats);
+                renderTypes(data.types);
+                renderWeaknesses(data.types);
+                cargarDescripcion(data.id);
+
+                document.getElementById("alturaFooter").textContent = "Altura: " + altura;
+                document.getElementById("pesoFooter").textContent = "Peso: " + peso;
+                document.getElementById("numeroFooter").textContent = "ID: " + numero;
+                document.getElementById("nombreFooter").textContent = "Nombre: " + nombre;
+
+            } catch (err) {
+                alert("No se encontró el Pokémon.");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+

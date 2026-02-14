@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Citas Veterinaria</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  font-family:'Poppins',sans-serif;
+  background: linear-gradient(135deg,#d8f3dc,#b7e4c7,#95d5b2);
+  min-height:100vh;
+}
+
+.titulo{
+  font-weight:600;
+  color:#1b4332;
+}
+
+.card-cita{
+  background:rgba(255,255,255,.9);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 15px 35px rgba(0,0,0,.15);
+  text-align:center;
+  border-top:6px solid #52b788;
+  transition:.3s;
+}
+.card-cita:hover{
+  transform:translateY(-6px);
+}
+
+.emoji{
+  width:85px;
+  height:85px;
+  margin:auto;
+  border-radius:50%;
+  background:linear-gradient(135deg,#52b788,#95d5b2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:48px;
+  margin-bottom:8px;
+}
+
+.info{
+  font-size:14px;
+  color:#495057;
+  margin:2px 0;
+}
+
+.sintomas{
+  background:#f1fdf8;
+  border-left:4px solid #52b788;
+  padding:6px 8px;
+  border-radius:6px;
+  font-size:13px;
+  margin-top:6px;
+}
+
+.btn-editar{ background:#ffd166;border:none; }
+.btn-eliminar{ background:#ef476f;border:none;color:white; }
+.btn-success{ background:#06d6a0;border:none; }
+
+@media(max-width:770px){
+  .row.mb-3.align-items-center{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:16px;
+  }
+  .row.mb-3.align-items-center .btn,
+  .row.mb-3.align-items-center select{
+    width:100%;
+  }
+}
+
+@media(max-width:300px){
+  .emoji{width:55px;height:55px;font-size:30px;}
+  .card-cita{padding:12px;}
+  .btn{font-size:12px;padding:5px;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container py-4">
+<h2 class="text-center mb-4 titulo">🐾 Gestión de Citas Veterinarias</h2>
+
+<div class="row mb-3 align-items-center">
+  <div class="col-md-8">
+    <select id="filtroEstado" class="form-select" onchange="render()">
+      <option value="Todas">Todas</option>
+      <option value="Abierta">Abierta</option>
+      <option value="Terminada">Terminada</option>
+      <option value="Anulada">Anulada</option>
+    </select>
+  </div>
+  <div class="col-md-4 text-end">
+    <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalCita">
+      ➕ Agregar cita
+    </button>
+  </div>
+</div>
+
+<div class="row" id="listaCitas"></div>
+</div>
+
+<!-- MODAL CITA -->
+<div class="modal fade" id="modalCita">
+<div class="modal-dialog">
+<div class="modal-content rounded-4">
+
+<div class="modal-header bg-success text-white">
+<h5 class="modal-title">Registrar / Editar Cita</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+<div id="alerta" class="alert alert-danger d-none"></div>
+<input type="hidden" id="editIndex">
+
+<input id="mascota" class="form-control mb-2" placeholder="Nombre de la mascota">
+<input id="propietario" class="form-control mb-2" placeholder="Propietario">
+<input id="telefono" class="form-control mb-2" placeholder="Teléfono">
+<input id="fecha" type="date" class="form-control mb-2">
+<input id="hora" type="time" class="form-control mb-2">
+
+<select id="animal" class="form-select mb-2">
+  <option value="">Tipo de mascota</option>
+  <option value="Perro">Perro 🐶</option>
+  <option value="Gato">Gato 🐱</option>
+  <option value="Pájaro">Pájaro 🐦</option>
+  <option value="Pez">Pez 🐠</option>
+  <option value="Vaca">Vaca 🐮</option>
+  <option value="Cerdo">Cerdo 🐷</option>
+  <option value="Gallina">Gallina 🐔</option>
+  <option value="Cabra">Cabra 🐐</option>
+  <option value="Caballo">Caballo 🐴</option>
+</select>
+
+<textarea id="sintomas" class="form-control" placeholder="Síntomas"></textarea>
+</div>
+
+<div class="modal-footer">
+<button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+<button class="btn btn-success" onclick="guardarCita()">Guardar</button>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- MODAL ELIMINAR -->
+<div class="modal fade" id="modalEliminar">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content rounded-4 text-center">
+<div class="modal-header bg-danger text-white">
+<h5 class="modal-title">⚠️ Eliminar cita</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+¿Seguro que deseas eliminar esta cita?
+</div>
+<div class="modal-footer justify-content-center">
+<button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+<button class="btn btn-danger" onclick="confirmarEliminar()">Eliminar</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+let citas=[];
+let indexEliminar=null;
+
+const emojis={
+  Perro:"🐶",
+  Gato:"🐱",
+  Pájaro:"🐦",
+  Pez:"🐠",
+  Vaca:"🐮",
+  Cerdo:"🐷",
+  Gallina:"🐔",
+  Cabra:"🐐",
+  Caballo:"🐴"
+};
+
+function mostrarError(msg){
+  alerta.textContent=msg;
+  alerta.classList.remove("d-none");
+  setTimeout(()=>alerta.classList.add("d-none"),3000);
+}
+
+function guardarCita(){
+  if(!mascota.value.trim()) return mostrarError("Falta el nombre de la mascota");
+  if(!propietario.value.trim()) return mostrarError("Falta el propietario");
+  if(!telefono.value.trim()) return mostrarError("Falta el teléfono");
+  if(!fecha.value) return mostrarError("Falta la fecha");
+  if(!hora.value) return mostrarError("Falta la hora");
+  if(!animal.value) return mostrarError("Selecciona el tipo de mascota");
+  if(!sintomas.value.trim()) return mostrarError("Faltan los síntomas");
+
+  const f=new Date(`${fecha.value}T${hora.value}`);
+  if(f<=new Date()) return mostrarError("La fecha debe ser posterior a hoy");
+
+  const h=parseInt(hora.value.split(":")[0]);
+  if(h<8||h>20) return mostrarError("Horario permitido: 8 AM a 8 PM");
+
+  const data={
+    mascota:mascota.value,
+    propietario:propietario.value,
+    telefono:telefono.value,
+    fecha:fecha.value,
+    hora:hora.value,
+    animal:animal.value,
+    sintomas:sintomas.value,
+    estado:"Abierta"
+  };
+
+  editIndex.value==="" ? citas.push(data) : citas[editIndex.value]=data;
+
+  bootstrap.Modal.getInstance(modalCita).hide();
+  limpiar();
+  render();
+}
+
+function render(){
+  listaCitas.innerHTML="";
+  const filtro=filtroEstado.value;
+
+  citas.forEach((c,i)=>{
+    if(filtro!=="Todas" && c.estado!==filtro) return;
+
+    listaCitas.innerHTML+=`
+    <div class="col-md-4 mb-4">
+      <div class="card-cita">
+        <div class="emoji">${emojis[c.animal]}</div>
+        <h6>${c.mascota}</h6>
+        <small>${c.animal}</small>
+
+        <p class="info mt-2">📞 <b>${c.telefono}</b></p>
+        <p class="info">📅 ${c.fecha} ⏰ ${c.hora}</p>
+
+        <div class="sintomas">🩺 ${c.sintomas}</div>
+
+        <select class="form-select mt-2 mb-2"
+          onchange="citas[${i}].estado=this.value;render()">
+          <option ${c.estado==="Abierta"?"selected":""}>Abierta</option>
+          <option ${c.estado==="Terminada"?"selected":""}>Terminada</option>
+          <option ${c.estado==="Anulada"?"selected":""}>Anulada</option>
+        </select>
+
+        <button class="btn btn-editar btn-sm" onclick="editar(${i})">✏️ Editar</button>
+        <button class="btn btn-eliminar btn-sm" onclick="eliminar(${i})">🗑️</button>
+      </div>
+    </div>`;
+  });
+}
+
+function editar(i){
+  const c=citas[i];
+  mascota.value=c.mascota;
+  propietario.value=c.propietario;
+  telefono.value=c.telefono;
+  fecha.value=c.fecha;
+  hora.value=c.hora;
+  animal.value=c.animal;
+  sintomas.value=c.sintomas;
+  editIndex.value=i;
+  new bootstrap.Modal(modalCita).show();
+}
+
+function eliminar(i){
+  indexEliminar=i;
+  new bootstrap.Modal(modalEliminar).show();
+}
+
+function confirmarEliminar(){
+  citas.splice(indexEliminar,1);
+  bootstrap.Modal.getInstance(modalEliminar).hide();
+  render();
+}
+
+function limpiar(){
+  document.querySelectorAll("#modalCita input, #modalCita textarea, #modalCita select")
+  .forEach(e=>e.value="");
+  editIndex.value="";
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

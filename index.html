@@ -4,57 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Selecciona una página</title>
+
   <style>
     body {
       font-family: "Segoe UI", sans-serif;
       background: linear-gradient(135deg, #141E30, #243B55);
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
       margin: 0;
+      padding: 40px 20px;
+      text-align: center;
     }
 
     h1 {
       font-size: 2.2em;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
       text-shadow: 0 0 8px #00c3ff;
     }
 
+    /* GRID DE TARJETAS */
     .menu {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 25px;
+      max-width: 1100px;
+      margin: auto;
     }
 
     .menu a {
       text-decoration: none;
-      background: #00c3ff;
-      color: #fff;
-      padding: 15px 30px;
-      border-radius: 15px;
-      font-size: 1.1em;
+      background: #1e2a3a;
+      border-radius: 20px;
+      padding: 30px 20px;
+      font-size: 1.2em;
+      color: #00c3ff;
       transition: 0.3s;
-      box-shadow: 0 4px 10px rgba(0, 195, 255, 0.3);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
     }
 
     .menu a:hover {
-      background: #007bff;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0, 195, 255, 0.6);
+      transform: translateY(-8px);
+      background: #243b55;
+      box-shadow: 0 10px 25px rgba(0, 195, 255, 0.5);
+      color: #ffffff;
     }
 
     footer {
-      position: absolute;
-      bottom: 15px;
+      margin-top: 50px;
       font-size: 0.9em;
       color: #aaa;
     }
   </style>
 </head>
+
 <body>
+
   <h1>Selecciona la página que deseas visitar</h1>
+
   <div class="menu">
     <a href="index_factura.html">Factura</a>
     <a href="index_hotel.html">Hotel</a>
@@ -64,9 +73,12 @@
     <a href="tienda cocina.html">tienda de cocina</a>
     <a href="tienda carros.html">tienda de autos</a>
     <a href="IMC.html">Calculadora IMC</a>
-     <a href="veterinaria.html">Veterinaria</a>
+    <a href="veterinaria.html">Veterinaria</a>
   </div>
+
   <footer>© 2025 - Proyecto de Navegación HTML</footer>
+
 </body>
 </html>
+
 

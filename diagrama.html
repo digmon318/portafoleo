@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda de Contactos</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2f5;
+            margin: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input,
+        select {
+            padding: 8px;
+            margin: 5px;
+            width: 180px;
+        }
+
+        button {
+            padding: 8px 14px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #3498db;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .delete {
+            background: #e74c3c;
+        }
+
+        .edit {
+            background: #f39c12;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background: #34495e;
+            color: white;
+        }
+
+        .search {
+            margin-top: 15px;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Agenda de Contactos</h1>
+
+    <div class="container">
+
+        <h3>Registrar Contacto</h3>
+
+        <input type="text" id="nombre" placeholder="Nombre">
+        <input type="text" id="telefono" placeholder="Teléfono">
+        <input type="email" id="correo" placeholder="Correo">
+
+        <select id="categoria">
+            <option value="">Categoría</option>
+            <option>Familia</option>
+            <option>Trabajo</option>
+            <option>Amigos</option>
+        </select>
+
+        <button onclick="guardarContacto()">Guardar</button>
+
+        <p class="error" id="mensajeError"></p>
+
+        <input class="search" type="text" id="buscar" placeholder="Buscar por nombre o categoría"
+            onkeyup="filtrarContactos()">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody id="tablaContactos"></tbody>
+
+        </table>
+
+    </div>
+
+    <script>
+
+        let contactos = JSON.parse(localStorage.getItem("contactos")) || []
+        let editando = null
+
+        function guardarLocal() {
+            localStorage.setItem("contactos", JSON.stringify(contactos))
+        }
+
+        function validarDatos(nombre, telefono, correo, categoria) {
+
+            let error = ""
+
+            if (nombre.trim() == "")
+                error = "El nombre es obligatorio"
+
+            else if (!/^[0-9]+$/.test(telefono))
+                error = "El teléfono debe contener solo números"
+
+            else if (!/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(correo))
+                error = "Correo inválido"
+
+            else if (categoria == "")
+                error = "Seleccione una categoría"
+
+            else {
+                let duplicado = contactos.find(c => c.telefono == telefono)
+                if (duplicado && editando == null)
+                    error = "El teléfono ya está registrado"
+            }
+
+            document.getElementById("mensajeError").innerText = error
+
+            return error == ""
+        }
+
+        function guardarContacto() {
+
+            let nombre = document.getElementById("nombre").value
+            let telefono = document.getElementById("telefono").value
+            let correo = document.getElementById("correo").value
+            let categoria = document.getElementById("categoria").value
+
+            if (!validarDatos(nombre, telefono, correo, categoria)) return
+
+            let contacto = {
+                id: Date.now(),
+                nombre,
+                telefono,
+                correo,
+                categoria
+            }
+
+            if (editando != null) {
+
+                contactos[editando] = { ...contacto, id: contactos[editando].id }
+                editando = null
+
+            } else {
+
+                contactos.push(contacto)
+
+            }
+
+            guardarLocal()
+            limpiarFormulario()
+            mostrarContactos()
+
+        }
+
+        function mostrarContactos() {
+
+            let tabla = document.getElementById("tablaContactos")
+            tabla.innerHTML = ""
+
+            contactos.forEach((c, index) => {
+
+                tabla.innerHTML += `
+<tr>
+<td>${c.nombre}</td>
+<td>${c.telefono}</td>
+<td>${c.correo}</td>
+<td>${c.categoria}</td>
+<td>
+<button class="edit" onclick="editarContacto(${index})">Editar</button>
+<button class="delete" onclick="eliminarContacto(${index})">Eliminar</button>
+</td>
+</tr>
+`
+
+            })
+
+        }
+
+        function editarContacto(index) {
+
+            let c = contactos[index]
+
+            document.getElementById("nombre").value = c.nombre
+            document.getElementById("telefono").value = c.telefono
+            document.getElementById("correo").value = c.correo
+            document.getElementById("categoria").value = c.categoria
+
+            editando = index
+
+        }
+
+        function eliminarContacto(index) {
+
+            if (confirm("¿Desea eliminar este contacto?")) {
+
+                contactos.splice(index, 1)
+
+                guardarLocal()
+                mostrarContactos()
+
+            }
+
+        }
+
+        function limpiarFormulario() {
+
+            document.getElementById("nombre").value = ""
+            document.getElementById("telefono").value = ""
+            document.getElementById("correo").value = ""
+            document.getElementById("categoria").value = ""
+            document.getElementById("mensajeError").innerText = ""
+
+        }
+
+        function filtrarContactos() {
+
+            let texto = document.getElementById("buscar").value.toLowerCase()
+
+            let resultado = contactos.filter(c =>
+                c.nombre.toLowerCase().includes(texto) ||
+                c.categoria.toLowerCase().includes(texto)
+            )
+
+            let tabla = document.getElementById("tablaContactos")
+            tabla.innerHTML = ""
+
+            resultado.forEach((c, index) => {
+
+                tabla.innerHTML += `
+<tr>
+<td>${c.nombre}</td>
+<td>${c.telefono}</td>
+<td>${c.correo}</td>
+<td>${c.categoria}</td>
+<td>
+<button class="edit" onclick="editarContacto(${index})">Editar</button>
+<button class="delete" onclick="eliminarContacto(${index})">Eliminar</button>
+</td>
+</tr>
+`
+
+            })
+
+        }
+
+        mostrarContactos()
+
+    </script>
+
+</body>
+
+</html>
